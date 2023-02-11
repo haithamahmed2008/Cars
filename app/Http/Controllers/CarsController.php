@@ -82,7 +82,10 @@ class CarsController extends Controller
      */
     public function show($id)
     {
-        //
+        $car = Car::find($id);
+
+
+        return view('cars.show')->with('car', $car);
     }
 
     /**
@@ -129,7 +132,10 @@ class CarsController extends Controller
         $car = Car::find($id);
 
         $car->delete();
-        
+
         return redirect('/cars');
+
+        // other method of deleting is to pass the model to the destroy function instead of the id
+        // public function destroy(Car $car){ $car->delete() } 
     }
 }

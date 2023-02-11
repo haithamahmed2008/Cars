@@ -14,4 +14,9 @@ class Car extends Model
     //protected $timestamps = true;
 
     protected $fillable = ['name','founded','description'];
+
+    public function carmodel()
+    {
+        return $this->hasMany(CarModel::class);
+    }
 }

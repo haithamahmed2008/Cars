@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Product;
 
 class CarsController extends Controller
 {
@@ -83,6 +84,10 @@ class CarsController extends Controller
     public function show($id)
     {
         $car = Car::find($id);
+
+        /* $products = Product::find(2);
+
+        dd($products->cars); */
 
 
         return view('cars.show')->with('car', $car);

@@ -58,6 +58,25 @@ class CarsController extends Controller
      */
     public function store(CreateValidationRequest $request)
     {
+
+        // --------------- Methods we can use on $request regarding the image --------------------
+
+            // Guess Extension --> show the extesion of the image
+                //$test = $request->file('image')->guessExtension();
+            //Get the Mime Type ---> the type of file (document, image , ..)/extestion
+                //$test = $request->file('image')->getMimeType();
+            //store(), asStore(), storePublicly()
+            //move()
+            //getClientOriginalName() ---> getting the name of the file
+                //$test = $request->file('image')->getClientOriginalName();
+            //getClientMimeType()
+            //guessClientExtension() ---> to get the file extension without the name or the dot.
+            //getSize()
+            //getError()
+            //isValid()
+        
+       // ----------- end of Methods we can use on $request regarding the image -------------------
+       
         // ----------Validation----------------------
 
         $request->validated();
@@ -72,6 +91,13 @@ class CarsController extends Controller
 
         // ---------- End of Validation----------------------
 
+        //----------- Working with Image --------------------
+
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension(); //set the name of the image file
+        $request->image->move(public_path('images'), $newImageName); //move the image and store it in the public/image folder 
+
+        //--------End Working with Image --------------------
+
         // We Have two ways for storing the data into database 
         // First way
         /* $car = new Car;
@@ -85,7 +111,8 @@ class CarsController extends Controller
         $car = Car::create([ //We can use Car::make instead but after we finish we have to call $car-save(), while with create no need
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'image_path' => $newImageName
         ]);
 
         return redirect('/cars');

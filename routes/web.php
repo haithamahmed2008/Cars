@@ -13,11 +13,12 @@ use App\Http\Controllers\CarsController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+/* Route::get('/', function () {
+    return view('Cars.index');
+}); */
 
 Route::resource('/cars', CarsController::class);
+Route::resource('/', CarsController::class);
 
 Route::get('/hh', function () {
     return view('index');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Product;
+use App\Rules\Uppercase;
+use App\Http\Requests\CreateValidationRequest;
 
 class CarsController extends Controller
 {
@@ -54,8 +56,22 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateValidationRequest $request)
     {
+        // ----------Validation----------------------
+
+        $request->validated();
+
+        /* $request->validate([
+            'name' => ['required','unique:cars',new Uppercase],
+            'founded' => ['required','integer','min:0','max:2023'],
+            'description' => ['required'],
+        ]); */
+        // if it's valid, it will proceed
+        // if it's not valid, it will throw a ValidationException with all the necessary validation errors.
+
+        // ---------- End of Validation----------------------
+
         // We Have two ways for storing the data into database 
         // First way
         /* $car = new Car;
@@ -114,8 +130,10 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateValidationRequest $request, $id)
     {
+        $request->validated();
+        
         $car = Car::where('id', $id)
             ->update([ 
                 'name' => $request->input('name'),

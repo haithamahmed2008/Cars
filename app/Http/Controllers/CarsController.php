@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Product;
+use App\Models\CarModel;
 use App\Rules\Uppercase;
 use App\Http\Requests\CreateValidationRequest;
 
@@ -127,13 +128,20 @@ class CarsController extends Controller
     public function show($id)
     {
         $car = Car::find($id);
+        //$mod = CarModel::where('car_id',$id)->get();
+
+        //dd($car->productionDate);
 
         /* $products = Product::find(2);
 
         dd($products->cars); */
-
-
         return view('cars.show')->with('car', $car);
+
+        /* return view('cars.show')->with([
+            'car'=> $car,
+            'mod' => $mod
+            
+        ]); */
     }
 
     /**

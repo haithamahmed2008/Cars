@@ -32,7 +32,7 @@ class Car extends Model
 
     public function productionDate()
     {
-        return $this->hasOneThrough(
+        return $this->hasManyThrough(
             CarProductionDate::class,
             CarModel::class,
             'car_id',

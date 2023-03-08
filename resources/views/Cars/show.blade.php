@@ -55,7 +55,18 @@
 
                                     </td>
                                     <td class="border-4 border-gray-500">
-                                        {{ date('d-m-Y', strtotime($car->productionDate->created_at)) }}
+                                        @forelse ($car->productionDate as $production)
+                                            @if ($production->model_id == $model->id)
+                                                {{ date('d-m-Y', strtotime($production->created_at)) }}
+                                                
+                                            @endif
+
+                                            
+                                        @empty
+                                            you still do not add it.
+                                            
+                                        @endforelse
+                                        
                                     </td>
                                 </tr>
                                 
